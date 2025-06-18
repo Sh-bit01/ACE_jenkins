@@ -1,9 +1,11 @@
-stages {
-        stage('Checkout') {
+pipeline {
+    agent any
+
+    stages {
+        stage('Test') {
             steps {
-                git branch: 'master', url: 'https://github.com/Sh-bit01/jenkins_spring.git'
+                echo "Hello from branch ${env.BRANCH_NAME}"
             }
         }
-
-
+    }
 }
