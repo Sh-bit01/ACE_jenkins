@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'master', url: 'https://github.com/Sh-bit01/ACE_jenkins.git'
+            }
+        }
+        
+            stage('Copy Branch') {
+            steps {
+            	 sh '''
+            	 cd /home/ubuntu/jenkins/
+                if [ -d "ACE_jenkins" ]; then
+                  echo "Directory ACE_jenkins exists. Pulling latest changes..."
+                  cd ACE_jenkins
+                  git pull
+                else
+                  echo "Directory ACE_jenkins not found. Cloning repository..."
+                  git clone https://github.com/Sh-bit01/ACE_jenkins.git
+                fi
+            	'''
+            }
+        }
+    
+    	stage('getting redy for deploy') {
+            steps {
+            	def deploy_path = sh(script: "tail -n 1 /home/ubuntu/jenkins/ACE_jenkins/DeployList", returnStdout: true).trim()
+               sh '''
+               cd /home/ubuntu/jenkins/ACE_jenkins/
+               cp ${deploy_path} /home/ubuntu/jenkins/Build/
+               '''
+            }
+        }
+        
+       stage('Create a bar file') {
+            steps {
+                sh '''
+                cd /home/ubuntu/jenkins/Build/
+                mqsicreatebar -data  ${deploy_path} -b /home/ubuntu/jenkins/Source/${deploy_path}/${deploy_path}.bar
+                '''
+            }
+        }
+
+    }
+}
