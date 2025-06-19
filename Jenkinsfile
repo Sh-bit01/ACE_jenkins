@@ -43,6 +43,8 @@ pipeline {
         stage('Create BAR File') {
             steps {
                 sh """
+                    Xvfb :99 -screen 0 1024x768x24 &
+                    export DISPLAY=:99
                     cd ${env.BASE_DIR}/Build/
                     /opt/ace-12.0.2.0/tools/mqsicreatebar -data ${env.BASE_DIR}/${env.REPO_NAME} -a ${env.DEPLOY_PATH} -p ${env.DEPLOY_PATH} -b ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar
                 """
