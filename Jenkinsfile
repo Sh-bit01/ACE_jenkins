@@ -34,7 +34,7 @@ pipeline {
                     echo "Deploy Path: ${env.DEPLOY_PATH}"
                 }
                 sh """
-                    cp ${env.DEPLOY_PATH} ${env.BASE_DIR}/Build/
+                    cp -r ${env.DEPLOY_PATH} ${env.BASE_DIR}/Build/
                 """
             }
         }
