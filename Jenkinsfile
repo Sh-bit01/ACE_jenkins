@@ -57,7 +57,8 @@ pipeline {
         stage('deploying') {
             steps {
                 sh """
-                . /opt/ace-12.0.2.0/server/bin/mqsiprofile
+                bash
+                source /opt/ace-12.0.2.0/server/bin/mqsiprofile
 		/opt/ace-12.0.2.0/server/bin/mqsideploy ${env.NODE} -e ${env.EG} -b ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar
                 """
             }
