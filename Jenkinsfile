@@ -8,6 +8,10 @@ pipeline {
         NODE = 'ACE'
 	EG = 'jenkins'
 	
+	MQSI_REGISTRY= '/var/mqsi'
+	MQSI_EXTENSIONS_PATH= '/var/mqsi/extensions/12.0.2'
+	MQSI_WORKPATH='/var/mqsi'
+	
 	MQSI_WEBADMIN_HOME = '/opt/ace-12.0.2.0/server/webadmin'
         PROSPECTIVE_MQSI_BASE_FILEPATH = '/opt/ace-12.0.2.0'
         MQSI_JARPATH = '/opt/ace-12.0.2.0/common/classes:/opt/ace-12.0.2.0/server/classes:/opt/ace-12.0.2.0/server/messages'
