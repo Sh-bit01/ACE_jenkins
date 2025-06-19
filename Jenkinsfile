@@ -56,7 +56,10 @@ pipeline {
         
         stage('deploying') {
             steps {
-                bash """
+                sh """
+                #!/bin/bash
+                .  /opt/ace-12.0.2.0/server/bin/mqsiprofile
+		source /opt/ace-12.0.2.0/server/bin/mqsiprofile
 		export LD_LIBRARY_PATH=/opt/ace-12.0.2.0/common/jdk/jre/lib/amd64:/opt/ace-12.0.2.0/common/jdk/jre/lib/amd64/classic:/opt/ace-12.0.2.0/common/jdk/jre/lib/icc:/opt/ace-12.0.2.0/common/jdk/lib/default:/opt/ace-12.0.2.0/common/jdk/lib/server:/opt/ace-12.0.2.0/common/jdk/lib:/opt/ace-12.0.2.0/ie02/lib:/var/mqsi/extensions/12.0.2/server/lib:/var/mqsi/extensions/12.0.2/lib:/opt/ace-12.0.2.0/server/xml4c/lib:/opt/ace-12.0.2.0/server/lib:/opt/ace-12.0.2.0/server/bin:/opt/ace-12.0.2.0/server/ODBC/drivers/lib:/opt/ace-12.0.2.0/server/xlxpc/lib:/opt/ace-12.0.2.0/server/dfdlc/lib
 		export LANG=en_US.UTF-8
 		/opt/ace-12.0.2.0/server/bin/mqsideploy ${env.NODE} -e ${env.EG} -b ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar
