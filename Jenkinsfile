@@ -66,31 +66,10 @@ pipeline {
         stage('Create BAR File') {
             steps {
                 sh """
+                    Xvfb :99 -screen 0 1024x768x24 &
+                    export DISPLAY=:99
                     cd ${env.BASE_DIR}/Build/
                     /opt/ace-12.0.2.0/tools/mqsicreatebar -data ${env.BASE_DIR}/${env.REPO_NAME} -a ${env.DEPLOY_PATH} -p ${env.DEPLOY_PATH} -b ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar
-                
-                    
-            STATUS=\$?
-
-            # If failed, retry with Xvfb
-            if [ \$STATUS -ne 0 ]; then
-                echo "First attempt failed. Trying again with Xvfb..."
-
-                # Kill old Xvfb if needed
-                PID=\$(pgrep -f "Xvfb :99")
-                if [ ! -z "\$PID" ]; then
-                    echo "Killing existing Xvfb process \$PID"
-                    kill -9 \$PID
-                    rm -f /tmp/.X99-lock
-                fi
-
-                Xvfb :99 -screen 0 1024x768x24 &
-                export DISPLAY=:99
-
-                # Second attempt
-                /opt/ace-12.0.2.0/tools/mqsicreatebar -data ${env.BASE_DIR}/${env.REPO_NAME} -a ${env.DEPLOY_PATH} -p ${env.DEPLOY_PATH} -b ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar
-            fi
-                
                 """
             }
         }
