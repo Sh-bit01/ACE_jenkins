@@ -5,6 +5,8 @@ pipeline {
         REPO_URL = 'https://github.com/Sh-bit01/ACE_jenkins.git'
         REPO_NAME = 'ACE_jenkins'
         BASE_DIR = '/home/ubuntu/jenkins'
+        NODE = 'ACE'
+	EG = 'jenkins'
     }
 
     stages {
@@ -50,6 +52,26 @@ pipeline {
                 """
             }
         }
+        
+        
+        stage('deploying') {
+            steps {
+                sh """
+		/opt/ace-12.0.2.0/server/bin/mqsideploy ${env.NODE} -e ${env.EG} -b ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar
+
+
+                """
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
 }
 
