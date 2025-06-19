@@ -7,6 +7,27 @@ pipeline {
         BASE_DIR = '/home/ubuntu/jenkins'
         NODE = 'ACE'
 	EG = 'jenkins'
+	
+	MQSI_WEBADMIN_HOME = '/opt/ace-12.0.2.0/server/webadmin'
+        PROSPECTIVE_MQSI_BASE_FILEPATH = '/opt/ace-12.0.2.0'
+        MQSI_JARPATH = '/opt/ace-12.0.2.0/common/classes:/opt/ace-12.0.2.0/server/classes:/opt/ace-12.0.2.0/server/messages'
+        MQSI_BASE_FILEPATH = '/opt/ace-12.0.2.0'
+        MQSI_JREPATH = '/opt/ace-12.0.2.0/common/jdk/jre'
+        MQSI_CATALINA_HOME = '/opt/ace-12.0.2.0/server/catalina'
+        MQSI_EXMLTCONFIGPATH = '/opt/ace-12.0.2.0/server/exmltConfig'
+        MQSI_LILPATH = '/var/mqsi/extensions/12.0.2/server/lil:/opt/ace-12.0.2.0/server/lil:/opt/ace-12.0.2.0/server/jplugin'
+        MQSI_SECURITY_PROVIDER_PATH = '/opt/ace-12.0.2.0/server/SecurityProviders'
+        MQSI_JDKPATH = '/opt/ace-12.0.2.0/common/jdk'
+        MIBDIRS = '/opt/ace-12.0.2.0/server/snmp-mib'
+        MQSI_NODE_PATH = '/opt/ace-12.0.2.0/common/node/lib/node_modules:/opt/ace-12.0.2.0/server/nodejs/node_modules:/opt/ace-12.0.2.0/server/nodejs:/var/mqsi/node_modules'
+        MQSI_FILEPATH = '/opt/ace-12.0.2.0/server'
+        CLASSPATH = '/opt/ace-12.0.2.0/server/messages:/opt/ace-12.0.2.0/common/classes:/opt/ace-12.0.2.0/server/classes:/opt/ace-12.0.2.0/common/jnr/lib/jnr-x86asm-1.0.2.jar:/opt/ace-12.0.2.0/common/jnr/lib/jnr-unixsocket-0.23.jar:/opt/ace-12.0.2.0/common/jnr/lib/jnr-posix-3.0.50.jar:/opt/ace-12.0.2.0/common/jnr/lib/jnr-ffi-2.1.10.jar:/opt/ace-12.0.2.0/common/jnr/lib/jnr-enxio-0.21.jar:/opt/ace-12.0.2.0/common/jnr/lib/jnr-constants-0.9.12.jar:/opt/ace-12.0.2.0/common/jnr/lib/jnr-a64asm-1.0.0.jar:/opt/ace-12.0.2.0/common/jnr/lib/jffi-1.2.19-native.jar:/opt/ace-12.0.2.0/common/jnr/lib/jffi-1.2.19.jar:/opt/ace-12.0.2.0/common/jnr/lib/asm-7.0.jar:/opt/ace-12.0.2.0/common/jackson/lib/snakeyaml-1.29.jar:/opt/ace-12.0.2.0/common/jackson/lib/jackson-datatype-jsr310-2.12.4.jar:/opt/ace-12.0.2.0/common/jackson/lib/jackson-dataformat-yaml-2.12.4.jar:/opt/ace-12.0.2.0/common/jackson/lib/jackson-core-2.12.4.jar:/opt/ace-12.0.2.0/common/jackson/lib/jackson-databind-2.12.4.jar:/opt/ace-12.0.2.0/common/jackson/lib/jackson-annotations-2.12.4.jar:/opt/ace-12.0.2.0/common/classes/IntegrationAPI.jar:/opt/ace-12.0.2.0/server/classes/brokerutil.jar:/var/mqsi/common/wsrr'
+        LD_LIBRARY_PATH = '/opt/ace-12.0.2.0/common/jdk/jre/lib/amd64:/opt/ace-12.0.2.0/common/jdk/jre/lib/amd64/classic:/opt/ace-12.0.2.0/common/jdk/jre/lib/icc:/opt/ace-12.0.2.0/common/jdk/lib/default:/opt/ace-12.0.2.0/common/jdk/lib/server:/opt/ace-12.0.2.0/common/jdk/lib:/opt/ace-12.0.2.0/ie02/lib:/var/mqsi/extensions/12.0.2/server/lib:/var/mqsi/extensions/12.0.2/lib:/opt/ace-12.0.2.0/server/xml4c/lib:/opt/ace-12.0.2.0/server/lib:/opt/ace-12.0.2.0/server/bin:/opt/ace-12.0.2.0/server/ODBC/drivers/lib:/opt/ace-12.0.2.0/server/xlxpc/lib:/opt/ace-12.0.2.0/server/dfdlc/lib'
+        ODBCSYSINI = '/opt/ace-12.0.2.0/ie02/etc'
+        NLSPATH = '/opt/ace-12.0.2.0/server/messages/%L/%N:/opt/ace-12.0.2.0/server/messages/En_US/%N'
+        PATH = '/opt/ace-12.0.2.0/common/jdk/jre/bin:/var/mqsi/extensions/12.0.2/server/bin:/var/mqsi/extensions/12.0.2/bin:/opt/ace-12.0.2.0/server/bin:/opt/ace-12.0.2.0/common/node/bin:/opt/ace-12.0.2.0/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'
+        IE02_PATH = '/opt/ace-12.0.2.0/ie02'
+        TOOLS_FILEPATH = '/opt/ace-12.0.2.0/tools'
     }
 
     stages {
@@ -57,11 +78,6 @@ pipeline {
         stage('deploying') {
             steps {
                 sh """
-                #!/bin/bash
-                .  /opt/ace-12.0.2.0/server/bin/mqsiprofile
-		source /opt/ace-12.0.2.0/server/bin/mqsiprofile
-		export LD_LIBRARY_PATH=/opt/ace-12.0.2.0/common/jdk/jre/lib/amd64:/opt/ace-12.0.2.0/common/jdk/jre/lib/amd64/classic:/opt/ace-12.0.2.0/common/jdk/jre/lib/icc:/opt/ace-12.0.2.0/common/jdk/lib/default:/opt/ace-12.0.2.0/common/jdk/lib/server:/opt/ace-12.0.2.0/common/jdk/lib:/opt/ace-12.0.2.0/ie02/lib:/var/mqsi/extensions/12.0.2/server/lib:/var/mqsi/extensions/12.0.2/lib:/opt/ace-12.0.2.0/server/xml4c/lib:/opt/ace-12.0.2.0/server/lib:/opt/ace-12.0.2.0/server/bin:/opt/ace-12.0.2.0/server/ODBC/drivers/lib:/opt/ace-12.0.2.0/server/xlxpc/lib:/opt/ace-12.0.2.0/server/dfdlc/lib
-		export LANG=en_US.UTF-8
 		/opt/ace-12.0.2.0/server/bin/mqsideploy ${env.NODE} -e ${env.EG} -b ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar
                 """
             }
