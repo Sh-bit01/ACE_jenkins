@@ -2,9 +2,13 @@ pipeline {
     agent any
 
     environment {
+    	IP = '192.168.1.98'
+    	PORT = '4415'
+    	ASHAR_EG = 'Server_1'
         REPO_URL = 'https://github.com/Sh-bit01/ACE_jenkins.git'
         REPO_NAME = 'ACE_jenkins'
         BASE_DIR = '/home/ubuntu/jenkins'
+        LOG  = '/home/ubuntu/jenkins/log'
         NODE = 'ACE'
 	EG = 'jenkins'
 	
@@ -78,14 +82,28 @@ pipeline {
             }
         }
         
+        stage('Parallel Tasks') {
+        parallel{
         
-        stage('deploying') {
+        stage('deploying on local') {
             steps {
                 sh """
-		/opt/ace-12.0.2.0/server/bin/mqsideploy ${env.NODE} -e ${env.EG} -a ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar
+		/opt/ace-12.0.2.0/server/bin/mqsideploy ${env.NODE} -e ${env.EG} -a ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar -v ${env.LOG}/remote.log
                 """
             }
         }
+        
+        stage('deploying on Remote') {
+            steps {
+                sh """
+		/opt/ace-12.0.2.0/server/bin/mqsideploy -i ${env.IP} -p ${env.PORT} -e ${env.ASHAR_EG} -a ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar -v ${env.LOG}/remote.log
+                """
+            }
+        }
+        
+        
+        }
+       }
                  
     }
 }
