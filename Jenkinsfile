@@ -43,7 +43,7 @@ pipeline {
             steps {
                 sh """
                     cd ${env.BASE_DIR}/Build/
-                    mqsicreatebar -data ${env.DEPLOY_PATH} -b ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar
+                    /opt/ace-12.0.2.0/tools/mqsicreatebar -data ${env.DEPLOY_PATH} -b ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar
                 """
             }
         }
