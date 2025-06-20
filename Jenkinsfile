@@ -88,7 +88,7 @@ pipeline {
         stage('deploying on local') {
             steps {
                 sh """
-		/opt/ace-12.0.2.0/server/bin/mqsideploy ${env.NODE} -e ${env.EG} -a ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar -v ${env.LOG}/remote.log
+		/opt/ace-12.0.2.0/server/bin/mqsideploy ${env.NODE} -e ${env.EG} -a ${env.BASE_DIR}/Source/${env.DEPLOY_PATH}/${env.DEPLOY_PATH}.bar -v ${env.LOG}/local.log
                 """
             }
         }
